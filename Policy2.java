@@ -23,8 +23,8 @@ public class Policy2
         this.holderLastName = "";
         this.holderAge = 0;
         this.smokingStatus = "";
-        this.holderHeight = 0.0;
-        this.holderWeight = 0.0;
+        this.holderHeight = 0;
+        this.holderWeight = 0;
 
     }
 
