@@ -27,7 +27,7 @@ public class PolicyDemo2
 
 
    		//Create an array list	to	store	objects.	The ArrayList will hold	Policy objects.
-   		 ArrayList<Policy2>	insurance =	new ArrayList<Policy2>();
+   		 ArrayList<Policy2> insurance = new ArrayList<Policy2>();
       
          /* Use a while loop	to	read the	file.	Use the hasNext()	method to determine whether
    	   the file has more data	to	be	read.	Use an "if statement" to determine the	end of the file and
@@ -56,7 +56,7 @@ public class PolicyDemo2
             }
 
 
-   			/* Create	Policy2 objects using the policy	class	type.	Objects will be created	as	long as there are	records in the file to read.*/
+   			/* Create Policy2 objects using the policy class	type.	Objects will be created	as	long as there are	records in the file to read.*/
    
    			Policy2 policy = new Policy2(policyNumber,	providerName, holderFirstName, holderLastName, holderAge, smokingStatus, holderHeight,	holderWeight);
    
@@ -68,7 +68,8 @@ public class PolicyDemo2
 		
          inputFile.close();//close the	file
 
-
+         int totalSmokers = 0;
+         int totalNonSmokers = 0;
          //use a	for loop	to	display the	output
    		for(int i =0; i <	insurance.size();	i++)
    		{
@@ -78,17 +79,34 @@ public class PolicyDemo2
    		   System.out.println("Policyholder’s Last Name: " +	insurance.get(i).getHolderLastName());
    		   System.out.println("Policyholder’s Age: " +	insurance.get(i).getHolderAge());
    		   System.out.println("Policyholder’s Smoking Status (will be “smoker” or “non-smoker”): " + insurance.get(i).getSmokingStatus());
-   		   System.out.println("Policyholder’s Height (in inches): " +	insurance.get(i).getHolderHeight());
-   		   System.out.println("Policyholder’s Weight (in pounds): " +	insurance.get(i).getHolderWeight());
+   		   System.out.println("Policyholder’s Height (in inches): " +	insurance.get(i).getHolderHeight() + " inches");
+   		   System.out.println("Policyholder’s Weight (in pounds): " +	insurance.get(i).getHolderWeight() + " pounds");
+            System.out.printf("Policyholder's BMI: %.2f\n", insurance.get(i).calculateBMI());
+            System.out.printf("Policy Price: $%.2f\n", insurance.get(i).calculateInsurancePrice());
    
    		   System.out.println();
-   
+            
+            //totalSmokers += insurance.get(i).getSmokingStatusNumber(); 
+            //totalNonSmokers += insurance.get(i).getNonSmokingStatusNumber(); 
+            
+            if (insurance.get(i).getSmokingStatus().equalsIgnoreCase("smoker")) 
+            {
+               totalSmokers += 1;
+            } 
+            else 
+            {
+               totalNonSmokers += 1;
+            }
+
    		} //end for loop
+         
+         System.out.println("The number of policies with a smoker is: " +  totalSmokers);
+         System.out.println("The number of policies with a non-smoker is: " + totalNonSmokers);
+         
       }// end of try
       
       catch (IOException ex) 
       {
-         //use the getMessage method of the exception we "caught" to print out it's message about what went wrong
          System.out.println("Something went wrong reading the file: " + ex.getMessage());
       }//end of catch
       
