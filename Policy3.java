@@ -3,6 +3,7 @@
 public class Policy3
 {
 	 private	String providerName;
+    private static int policyCount;
 
 	 /**
 	  * No-Arg Constructor
@@ -41,9 +42,24 @@ public class Policy3
 		  this.providerName = providerName;
 	 }
     
+    /**
+      *Add a static field that is used to keep track of the number of Policy objects that have been created.
+      *
+      */
+    public Policy3()
+    {
+      policyCount++;
+    }
+    
+    public int getPolicyCount()
+    {
+      return policyCount;
+    }
+    
     public String toString()
     {
-      String str = "Provider Name" + providerName;
+      String str = "Provider Name" + providerName
+                     + "\nPolicy Count: " + policyCount;
       return str;
     }
 
