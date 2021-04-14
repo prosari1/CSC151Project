@@ -2,7 +2,6 @@
 
 public class PolicyHolder
 {
-	 private	String policyNumber;
 	 private	String holderFirstName;
 	 private	String holderLastName;
 	 private	int holderAge;
@@ -16,23 +15,30 @@ public class PolicyHolder
 
 	 public PolicyHolder()
 	 {
-		  this.policyNumber = "";
 		  this.holderFirstName = "";
 		  this.holderLastName =	"";
 		  this.holderAge = 0;
 		  this.smokingStatus	= "";
 		  this.holderHeight = 0;
 		  this.holderWeight = 0;
-
 	 }
+    
+    public PolicyHolder(PolicyHolder obj2)
+    {
+      this.holderFirstName = obj2.holderFirstName;
+		this.holderLastName =	obj2.holderLastName;
+		this.holderAge = obj2.holderAge;
+		this.smokingStatus = obj2.smokingStatus;
+		this.holderHeight = obj2.holderHeight;
+		this.holderWeight = obj2.holderWeight;
+    }
 
 	 /**
 	  * Constructor that	accepts all	arguments to initialize	Policy object
 	  */
 
-	 public PolicyHolder(String policyNumber, String holderFirstName, String holderLastName,	int holderAge,	String smokingStatus, double holderHeight, double holderWeight)
+	 public PolicyHolder(String holderFirstName, String holderLastName,	int holderAge,	String smokingStatus, double holderHeight, double holderWeight)
 	 {
-		  this.policyNumber = policyNumber;
 		  this.holderFirstName = holderFirstName;
 		  this.holderLastName =	holderLastName;
 		  this.holderAge = holderAge;
@@ -47,16 +53,6 @@ public class PolicyHolder
 	  * Accesor	Methods (getters)	- method	that gets a	value	from a class's	field	but does	not change it.
 	  * Mutator	Methods (setters)	- method	that stores	a value in a field or changes	the value of the field in some other way.
 	  */
-
-	 public String	getPolicyNumber()
-	 {
-		  return	policyNumber;
-	 }
-
-	 public void setPolicyNumber(String	policyNumber)
-	 {
-		  this.policyNumber = policyNumber;
-	 }
 
 	 public String	getHolderFirstName()
 	 {
@@ -174,14 +170,14 @@ public class PolicyHolder
 	 
    public String toString()
    {
-      String str = String.format("Policy number: " + policyNumber + 
-                                 "\nPolicy First Name: " + holderFirstName + 
-                                 "\nPolicy Last Name: " + holderLastName + 
-                                 "\nAge:" + holderAge + 
-                                 "\nSmoking Status: " + smokingStatus + 
-                                 "\nHeight: " + holderHeight + 
-                                 "\nWeight: " + holderWeight
-                                 );
+      String str =               "\nPolicyholder's First Name: " + holderFirstName + 
+                                 "\nPolicyholder's Last Name: " + holderLastName + 
+                                 "\nPolicyholder's Age: " + holderAge + 
+                                 "\nPolicyholder's Smoking Status (Y/N): " + smokingStatus + 
+                                 "\nPolicyholder's Height: " + holderHeight + 
+                                 "\nPolicyholder's Weight: " + holderWeight + 
+                                 "Policyholder's BMI: " + calculateBMI() + 
+                                 "Policy Price: " + calculateInsurancePrice();
       return str;
    }
 }
