@@ -1,180 +1,134 @@
 
 
-public class Policy
+public class Policy3
 {
-    private int policyNumber;
-    private String providerName;
-    private String holderFirstName;
-    private String holderLastName;
-    private int holderAge;
-    private String smokingStatus;
-    private double holderHeight;
-    private double holderWeight;
+    private	String policyNumber;
+	 private	String providerName;
+    private PolicyHolder pH;
+    
+    private static int policyCount = 0; //static field to keep track of the number of policy
 
-    /**
-     * No-Arg Constructor
-     */
+	 /**
+	  * No-Arg Constructor
+	  */
 
-    public Policy()
-    {
-        this.policyNumber = 0;
-        this.providerName = "";
-        this.holderFirstName = "";
-        this.holderLastName = "";
-        this.holderAge = 0;
-        this.smokingStatus = "";
-        this.holderHeight = 0.0;
-        this.holderWeight = 0.0;
+	 public Policy3()
+	 {
+		  this.providerName = "";
+        this.policyNumber = "";
+        this.pH = new PolicyHolder(); //initialize the policy holder field 
+        Policy3.policyCount++;
+	 }
 
-    }
+	 /**
+	  * Constructor that	accepts all	arguments to initialize	Policy object
+	  */
 
-    /**
-     * Constructor that accepts all arguments to initialize Policy object
-     */
-
-    public Policy(int policyNumber, String providerName, String holderFirstName, String holderLastName, int holderAge, String smokingStatus, double holderHeight, double holderWeight)
-    {
+	 public Policy3(String providerName, String policyNumber, PolicyHolder pH)
+	 {
+		  this.providerName = providerName;
         this.policyNumber = policyNumber;
-        this.providerName = providerName;
-        this.holderFirstName = holderFirstName;
-        this.holderLastName = holderLastName;
-        this.holderAge = holderAge;
-        this.smokingStatus = smokingStatus;
-        this.holderHeight = holderHeight;
-        this.holderWeight = holderWeight;
+        this.pH = new PolicyHolder(pH);//create a "deep copy" using the PolicyHolder's copy constructor
+        Policy3.policyCount++;
+	 }
+    
+    public Policy3(PolicyHolder pH, int policyCount)
+    {
+      this.policyCount = policyCount;
+      this.pH = new PolicyHolder(pH);
+      Policy3.policyCount++;
     }
 
+	 /**
+    
+	  * Getters	and Setters	for each	field
+	  *
+	  * Accesor	Methods (getters)	- method	that gets a	value	from a class's	field	but does	not change it.
+	  * Mutator	Methods (setters)	- method	that stores	a value in a field or changes	the value of the field in some other way.
+	  */
+    public String	getPolicyNumber()
+	 {
+		  return	policyNumber;
+	 }
+
+	 public void setPolicyNumber(String	policyNumber)
+	 {
+		  this.policyNumber = policyNumber;
+	 }
+	 
+	 public String	getProviderName()
+	 {
+		  return	providerName;
+	 }
+
+	 public void setProviderName(String	providerName)
+	 {
+		  this.providerName = providerName;
+	 }
+    
+    public static int getPolicyCount()
+    {
+      return policyCount;
+    }
+        
     /**
-     * Getters and Setters for each field
-     *
-     * Accesor Methods (getters) - method that gets a value from a class's field but does not change it.
-     * Mutator Methods (setters) - method that stores a value in a field or changes the value of the field in some other way.
-     */
-
-    public int getPolicyNumber()
+    @return The PolicyHolder for the policy
+    */
+    
+    public PolicyHolder getPolicyHolder()
     {
-        return policyNumber;
+      return new PolicyHolder(pH);//return a copy of the PolicyHolder for the policy using the Copy Constructor
     }
-
-    public void setPolicyNumber(int policyNumber)
-    {
-        this.policyNumber = policyNumber;
-    }
-
-    public String getProviderName()
-    {
-        return providerName;
-    }
-
-    public void setProviderName(String providerName)
-    {
-        this.providerName = providerName;
-    }
-
-    public String getHolderFirstName()
-    {
-        return holderFirstName;
-    }
-
-    public void setHolderFirstName(String holderFirstName)
-    {
-        this.holderFirstName = holderFirstName;
-    }
-
-    public String getHolderLastName()
-    {
-        return holderLastName;
-    }
-
-    public void setHolderLastName(String holderLastName)
-    {
-        this.holderLastName = holderLastName;
-    }
-
-    public int getHolderAge()
-    {
-        return holderAge;
-    }
-
-    public void setHolderAge(int holderAge)
-    {
-        this.holderAge = holderAge;
-    }
-
-    public String getSmokingStatus()
-    {
-        return smokingStatus;
-    }
-
-    public void setSmokingStatus(String smokingStatus)
-    {
-        this.smokingStatus = smokingStatus;
-    }
-
-    public double getHolderHeight()
-    {
-        return holderHeight;
-    }
-
-    public void setHolderHeight(double holderHeight)
-    {
-        this.holderHeight = holderHeight;
-    }
-
-    public double getHolderWeight()
-    {
-        return holderWeight;
-    }
-
-    public void setHolderWeight(double holderWeight)
-    {
-        this.holderWeight = holderWeight;
-    }
-
+    
     /**
-     * bmi of the policyholder
-     * @return the bmi = (Policyholder’s Weight * 703 ) / (Policyholder’s Height2 )
-     */
+	  * method that calculates	and returns	the price of the insurance	policy
+	  * The Insurance	Policy has a base	fee of $600
+	  * If the Policyholder	is	over 50 years old, there is an additional	fee of $75
+	  * If the Policyholder	is	a smoker, there is an additional	fee of $100
+	  * If the Policyholder	has a	BMI of over	35, there is an additional	fee calculated	as	follows:
+	  * Additional	Fee =	( BMI	– 35 ) *	20
+	  *
+	  * @return	insurancePrice
+	  */
 
-    public double calculateBMI ()
-    {
-        double bmi = 0.0;
+	 public double	calculateInsurancePrice	()
+	 {
+		  final double	BASE_FEE	= 600.0;
+		  final double	AGE_FEE = 75.0;
+		  final double	SMOKER_FEE = 100.0;
+		  final double	ADDITIONAL_FEE_PER_BMI = 20.0;
 
-        bmi = (holderWeight * 703) / (Math.pow(holderHeight, 2));
-        return  bmi;
-    }
+		  final int	AGE_THRESHOLD = 50;
+		  final int	BMI_THRESHOLD = 35;
 
-    /**
-     * method that calculates and returns the price of the insurance policy
-     * The Insurance Policy has a base fee of $600
-     * If the Policyholder is over 50 years old, there is an additional fee of $75
-     * If the Policyholder is a smoker, there is an additional fee of $100
-     * If the Policyholder has a BMI of over 35, there is an additional fee calculated as follows:
-     * Additional Fee = ( BMI – 35 ) * 20
-     */
+		  double	insurancePrice	= BASE_FEE;
 
-    public double calculateInsurancePrice ()
-    {
-        final double BASE_FEE = 600.0;
-        final double AGE_FEE = 75.0;
-        final double SMOKER_FEE = 100.0;
-        double insurancePrice = 0.0;
-        double bmi = calculateBMI(); //passing value bmi calculate in the method
+		  if (pH.getHolderAge() >= AGE_THRESHOLD)//over 50 years
+		  {
+				insurancePrice	+=	AGE_FEE;	//75
+		  }
+		  if (pH.getSmokingStatus().equalsIgnoreCase("smoker"))
+		  {
+				insurancePrice	+=	SMOKER_FEE;	//100
+		  }
+		  if (pH.calculateBMI()	>=	BMI_THRESHOLD)	 //BMI over	35
+		  {
+				insurancePrice	+=	((	pH.calculateBMI()	- BMI_THRESHOLD )	* ADDITIONAL_FEE_PER_BMI);	//additional BMI fee	- 20
+		  }
 
-        if (holderAge >= 50)
-        {
-            insurancePrice = AGE_FEE;
-        }
-        else if (smokingStatus.equalsIgnoreCase("smoker"))
-        {
-            insurancePrice = SMOKER_FEE;
-        }
-        else if (bmi >= 35)
-        {
-            insurancePrice = (( bmi - 35 ) * 20);
-        }
+		  return	insurancePrice;
+	 }
+    
+   /**
+   @return A String that describes the Policy
+   */
+   public String toString()
+   {
+      return String.format("Policy Number: " + policyNumber +
+                           "\nProvider Name: " + providerName +
+                           "\n" + pH + //implicitly calling the PolicyHolder's toString() method
+                           "\nPolicy Price: $%.2f", calculateInsurancePrice());
+   }
 
-        return insurancePrice + BASE_FEE;
-    }
 
 }
