@@ -1,6 +1,6 @@
 
 
-public class Policy3
+public class Policy
 {
     private	String policyNumber;
 	 private	String providerName;
