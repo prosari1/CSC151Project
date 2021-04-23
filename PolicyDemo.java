@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class PolicyDemo3
+public class PolicyDemo
 {
 
 	public static void main	(String[] args) 
