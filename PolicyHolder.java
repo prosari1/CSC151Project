@@ -125,59 +125,15 @@ public class PolicyHolder
 
 		  return	(holderWeight * CONVFACTOR) /	(holderHeight * holderHeight);
 	 }
-
-	 /**
-	  * method that calculates	and returns	the price of the insurance	policy
-	  * The Insurance	Policy has a base	fee of $600
-	  * If the Policyholder	is	over 50 years old, there is an additional	fee of $75
-	  * If the Policyholder	is	a smoker, there is an additional	fee of $100
-	  * If the Policyholder	has a	BMI of over	35, there is an additional	fee calculated	as	follows:
-	  * Additional	Fee =	( BMI	– 35 ) *	20
-	  *
-	  * @return	insurancePrice
-	  */
-
-	 public double	calculateInsurancePrice	()
-	 {
-		  final double	BASE_FEE	= 600.0;
-		  final double	AGE_FEE = 75.0;
-		  final double	SMOKER_FEE = 100.0;
-		  final double	ADDITIONAL_FEE_PER_BMI = 20.0;
-
-		  final int	AGE_THRESHOLD = 50;
-		  final int	BMI_THRESHOLD = 35;
-
-		  double	insurancePrice	= BASE_FEE;
-
-		  //double insurancePrice = 0.0;
-		  //double bmi	= calculateBMI();	//passing value bmi calculate	in	the method
-
-		  if (holderAge >= AGE_THRESHOLD)//over 50 years
-		  {
-				insurancePrice	+=	AGE_FEE;	//75
-		  }
-		  if (smokingStatus.equalsIgnoreCase("smoker"))
-		  {
-				insurancePrice	+=	SMOKER_FEE;	//100
-		  }
-		  if (calculateBMI()	>=	BMI_THRESHOLD)	 //BMI over	35
-		  {
-				insurancePrice	+=	((	calculateBMI()	- BMI_THRESHOLD )	* ADDITIONAL_FEE_PER_BMI);	//additional BMI fee	- 20
-		  }
-
-		  return	insurancePrice;
-	 }
 	 
    public String toString()
    {
-      String str =               "\nPolicyholder's First Name: " + holderFirstName + 
-                                 "\nPolicyholder's Last Name: " + holderLastName + 
-                                 "\nPolicyholder's Age: " + holderAge + 
-                                 "\nPolicyholder's Smoking Status (Y/N): " + smokingStatus + 
-                                 "\nPolicyholder's Height: " + holderHeight + 
-                                 "\nPolicyholder's Weight: " + holderWeight + 
-                                 "Policyholder's BMI: " + calculateBMI() + 
-                                 "Policy Price: " + calculateInsurancePrice();
-      return str;
+      return String.format("Policyholder's First Name: " + holderFirstName + 
+                           "\nPolicyholder's Last Name: " + holderLastName + 
+                           "\nPolicyholder's Age: " + holderAge +
+                           "\nPolicyholder's Smoking Status: " + smokingStatus +
+                           "\nPolicyholder's Height: " + holderHeight + " inches" +
+                           "\nPolicyholder's Weight: " + holderWeight + " pounds" +
+                           "\nPolicyholder's BMI: %.2f" , calculateBMI());
    }
 }
